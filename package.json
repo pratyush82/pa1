@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build-web": "webpack && copy index.html build\\",
-    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'tests/**/*.test.ts'"
+    "test": "mocha -r ts-node/register 'tests/**/*.test.ts'"
   },
   "author": "",
   "license": "ISC",

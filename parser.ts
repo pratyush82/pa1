@@ -51,7 +51,6 @@ export function traverseExpr(c : TreeCursor, s : string) : Expr {
         };
       }
       throw new Error("PARSE ERROR: function call with incorrect parity");
-
     case "UnaryExpression":
       c.firstChild();
       var uniOp = s.substring(c.from, c.to);

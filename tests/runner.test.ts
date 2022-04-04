@@ -13,6 +13,10 @@ const importObject = {
       importObject.output += "\n";
       return arg;
     },
+    abs: Math.abs,
+    max: Math.max,
+    min: Math.min,
+    pow: Math.pow
   },
 
   output: ""
@@ -61,6 +65,41 @@ describe('run(source, config) function', () => {
   it('adds two numbers', async() => {
     const result = await run("2 + 3", config);
     expect(result).to.equal(5);
+  });
+
+  it('subtracts two numbers', async() => {
+    const result = await run("5 - 3", config);
+    expect(result).to.equal(2);
+  });
+
+  it('multiplies two numbers', async() => {
+    const result = await run("2 * 3", config);
+    expect(result).to.equal(6);
+  });
+
+  it('absolute of a negative number', async() => {
+    const result = await run("abs(-2)", config);
+    expect(result).to.equal(2);
+  });
+
+  it('max of two numbers', async() => {
+    const result = await run("max(1,2)", config);
+    expect(result).to.equal(2);
+  });
+
+  it('min of two numbers', async() => {
+    const result = await run("min(1,2)", config);
+    expect(result).to.equal(1);
+  });
+
+  it('exponentiation', async() => {
+    const result = await run("pow(2,2)", config);
+    expect(result).to.equal(4);
+  });
+
+  it('negates a number', async() => {
+    const result = await run("-2", config);
+    expect(result).to.equal(-2);
   });
 
   // TODO: add additional tests here to ensure the compiler runs as expected
