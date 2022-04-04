@@ -39,7 +39,7 @@ describe('traverseExpr(c, s) function', () => {
   });
 
   it('parses abs statement', () => {
-    const source = "abs(1)";
+    const source = "abs(-1)";
     const cursor = parser.parse(source).cursor();
 
     // go to statement
@@ -55,7 +55,7 @@ describe('traverseExpr(c, s) function', () => {
       "name": "abs",
       "arg": {
         "tag": "num",
-        "value": 1
+        "value": -1
       }
     });
   });
@@ -82,7 +82,7 @@ describe('traverseExpr(c, s) function', () => {
     });
   });
 
-  it('parses max statement', () => {
+  it('parses max(x,y) statement', () => {
     const source = "max(1,2)";
     const cursor = parser.parse(source).cursor();
 
@@ -108,7 +108,7 @@ describe('traverseExpr(c, s) function', () => {
     });
   });
 
-  it('parses min statement', () => {
+  it('parses min(x,y) statement', () => {
     const source = "min(1,2)";
     const cursor = parser.parse(source).cursor();
 
@@ -134,7 +134,7 @@ describe('traverseExpr(c, s) function', () => {
     });
   });
 
-  it('parses pow statement', () => {
+  it('parses pow(x,y) statement', () => {
     const source = "pow(2,2)";
     const cursor = parser.parse(source).cursor();
 
@@ -303,7 +303,84 @@ describe('parse(source) function', () => {
   it('parse a number', () => {
     const parsed = parse("987");
     expect(parsed).to.deep.equal([{tag: "expr", expr: {tag: "num", value: 987}}]);
-  });  
+  });
+
+  it('parse / binary operation', () => {
+    let err = null;
+    try {
+      parse("3/2");
+    } catch(e) {
+      err = e;
+    }
+    expect(err).to.be.an('Error');
+    expect(err.message).to.contain('PARSE ERROR');
+  });
+
+  it('parse % binary operation', () => {
+    let err = null;
+    try {
+      parse("3%2");
+    } catch(e) {
+      err = e;
+    }
+    expect(err).to.be.an('Error');
+    expect(err.message).to.contain('PARSE ERROR');
+  });
+
+  it('parse abs(x,y)', () => {
+    let err = null;
+    try {
+      parse("abs(1,2)");
+    } catch(e) {
+      err = e;
+    }
+    expect(err).to.be.an('Error');
+    expect(err.message).to.contain('PARSE ERROR');
+  });
+
+  it('parse max(x)', () => {
+    let err = null;
+    try {
+      parse("max(1)");
+    } catch(e) {
+      err = e;
+    }
+    expect(err).to.be.an('Error');
+    expect(err.message).to.contain('PARSE ERROR');
+  });
+
+  it('parse min(x)', () => {
+    let err = null;
+    try {
+      parse("min(1)");
+    } catch(e) {
+      err = e;
+    }
+    expect(err).to.be.an('Error');
+    expect(err.message).to.contain('PARSE ERROR');
+  });
+
+  it('parse pow(x)', () => {
+    let err = null;
+    try {
+      parse("pow(1)");
+    } catch(e) {
+      err = e;
+    }
+    expect(err).to.be.an('Error');
+    expect(err.message).to.contain('PARSE ERROR');
+  });
+
+  it('parse print(x,y)', () => {
+    let err = null;
+    try {
+      parse("print(1,2)");
+    } catch(e) {
+      err = e;
+    }
+    expect(err).to.be.an('Error');
+    expect(err.message).to.contain('PARSE ERROR');
+  });
 
   // TODO: add additional tests here to ensure parse works as expected
 });

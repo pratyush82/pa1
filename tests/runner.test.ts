@@ -77,9 +77,11 @@ describe('run(source, config) function', () => {
     expect(result).to.equal(6);
   });
 
-  it('absolute of a negative number', async() => {
-    const result = await run("abs(-2)", config);
-    expect(result).to.equal(2);
+  it('absolute value of a number', async() => {
+    const result1 = await run("abs(2)", config);
+    const result2 = await run("abs(-2)", config);
+    expect(result1).to.equal(2);
+    expect(result2).to.equal(2);
   });
 
   it('max of two numbers', async() => {
@@ -100,6 +102,18 @@ describe('run(source, config) function', () => {
   it('negates a number', async() => {
     const result = await run("-2", config);
     expect(result).to.equal(-2);
+  });
+
+  it('reference error', async() => {
+    let err = null;
+    try {
+      await run("x-2", config);
+    } catch(e) {
+      err = e;
+    }
+
+    expect(err).to.be.an('Error');
+    expect(err.message).to.contain('REFERENCE ERROR');
   });
 
   // TODO: add additional tests here to ensure the compiler runs as expected
